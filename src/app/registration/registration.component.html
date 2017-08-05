@@ -1,0 +1,20 @@
+<div class="pen-title">
+  <h1>Registration</h1><span>Pen <i class='fa fa-paint-brush'></i> + <i class='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span>
+</div>
+<!-- Form Module-->
+<div class="module form-module">
+  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+    <div class="tooltip">Click Me</div>
+  </div>
+  <div class="form">
+    <h2>Create an account</h2>
+    <form (ngSubmit)="onSubmit()">
+      {{diagnostic}}
+      <input type="text" placeholder="fullname" name="fullname" [(ngModel)]="regCred.fullname"/>
+      <input type="email" placeholder="Email Address"  name="email" [(ngModel)]="regCred.email"/>
+      <input type="password" placeholder="Password"  name="password" [(ngModel)]="regCred.password"/>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+  <div class="cta"><a routerLink="/login">Have a profile?</a></div>
+</div>

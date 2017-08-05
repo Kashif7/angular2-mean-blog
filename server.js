@@ -3,6 +3,7 @@ const express = require('express'),
     cookieParser = require('cookie-parser'),
     path = require('path'),
     mongoose = require('mongoose'),
+    passport = require('passport'),
     app = express();
 
 //middleware
@@ -22,14 +23,20 @@ mongoose.connect('mongodb://localhost/blog').then(()=>{
 });
 
 //models
+require('./server/Auth/user.model');
 
 //config
+require('./config/passport.js');//local authentication
+app.use(passport.initialize());//has to be initialized after importing models and before routes
 
 //controllers
+require('./server/Auth/user.controller');
 
 //routers
+const UserRouter = require('./server/Auth/user.route');
 
 //api Routes
+app.use('/api/auth',UserRouter);//todo: move the routes to a separate file
 
 //serving the index file for the root route
 app.get('/',(req,res) => {
