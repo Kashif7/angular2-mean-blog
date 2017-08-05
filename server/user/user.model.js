@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
     crypto = require('crypto'),
     jwt = require('jsonwebtoken'),
-    autoIncrement = require('mongoose-sequence-plugin');
+    autoIncrement = require('mongoose-sequence')(mongoose);
     Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -12,11 +12,15 @@ const userSchema = new Schema({
         type: String,
         unique: true
     },
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
     salt: String,
     hash: String
 });
 
-userSchema.plugin(autoIncrement, { field: 'userId' });
+userSchema.plugin(autoIncrement, { inc_field: 'userId' });
 
 userSchema.methods.setPassword = function (password) {
     this.salt = crypto.randomBytes(16).toString('hex');

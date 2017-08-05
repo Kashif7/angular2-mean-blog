@@ -23,20 +23,24 @@ mongoose.connect('mongodb://localhost/blog').then(()=>{
 });
 
 //models
-require('./server/Auth/user.model');
+require('./server/user/user.model');
+require('./server/post/post.model');
 
 //config
 require('./config/passport.js');//local authentication
 app.use(passport.initialize());//has to be initialized after importing models and before routes
 
 //controllers
-require('./server/Auth/user.controller');
+require('./server/user/auth/auth.controller');
+require('./server/user/api/user.controller');
 
 //routers
-const UserRouter = require('./server/Auth/user.route');
+const AuthRouter = require('./server/user/auth/auth.route');
+const UserRouter = require('./server/user/api/user.route');
 
 //api Routes
-app.use('/api/auth',UserRouter);//todo: move the routes to a separate file
+app.use('/api/auth',AuthRouter);//todo: move the routes to a separate file
+app.use('/api/user',UserRouter);
 
 //serving the index file for the root route
 app.get('/',(req,res) => {
