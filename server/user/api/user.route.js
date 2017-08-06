@@ -14,6 +14,7 @@ let storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
+
 Router.get('/',UserController.getUsers);
 Router.get('/:userId/posts',UserController.getPosts);
 Router.get('/:userId/posts/:postId',UserController.getPost);

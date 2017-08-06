@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 //services
 import { PostService } from '../post.service';
 import { AuthService } from '../auth.service';
@@ -15,11 +16,20 @@ export class HomeComponent implements OnInit {
   pageCount: number;
   pageArray: number[] = [];
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService, private authService: AuthService,private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.pageNo = 1;//remember to change this to one
-    this.userId = this.authService.currentUser().id;
+     this.activatedRoute.queryParams.subscribe((params: Params) => {
+        if(params['userId']) {
+          this.userId = params['userId'];
+          console.log(this.userId);
+        } else {
+          this.userId = this.authService.currentUser().id;
+          console.log(this.userId);
+        }        
+      });
+
+    this.pageNo = 1;//remember to change this to one;
     this.userName = this.authService.currentUser().fullname;
 
     this.getPageCount();
@@ -54,6 +64,10 @@ export class HomeComponent implements OnInit {
       this.createPaginateArray();
       this.loadPage();
     });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 

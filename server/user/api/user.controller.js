@@ -5,11 +5,11 @@ const mongoose = require('mongoose'),
     upload = multer({ dest: 'uploads/' }),
     maxPageData = 3;
 
-module.exports.getPageCount = (req,res) => {
+module.exports.getPageCount = (req, res) => {
     User.findOne({ userId: req.params.userId }).then(user => {
-        res.send({postCount: user.posts.length});
+        res.send({ postCount: user.posts.length });
     });
-}    
+}
 
 module.exports.getPosts = (req, res) => {
 
@@ -17,7 +17,7 @@ module.exports.getPosts = (req, res) => {
         let start = parseInt(req.query.page * maxPageData - maxPageData);
         let end = parseInt(start + maxPageData);
 
-        User.findOne({ userId: req.params.userId }).populate({path:'posts',match: { postId: { $gt: start, $lte: end}}}).exec().then(user => {
+        User.findOne({ userId: req.params.userId }).populate({ path: 'posts', match: { postId: { $gt: start, $lte: end } } }).exec().then(user => {
             res.send(user.posts);
         }).catch(err => {
             res.send({ error: err });
@@ -67,10 +67,29 @@ module.exports.updatePost = (req, res) => {
     }).catch(err => {
         res.send({ error: err });
     });
-};  
+};
 
-module.exports.getUsers = (req,res) => {
-    console.log("zxssc");
-    console.log(req.query);
-    res.json(["ssssfs","ssdsfsfs"]);
+module.exports.getUsers = (req, res) => {
+    if (req.query.name) {
+        console.log(req.query.name);
+        User.findOne({ fullname: req.query.name }).then(user => {
+            if (user) {
+                 res.send(user);
+            } else {
+                res.send({msg:'Not Found'})
+            }
+           
+        }).catch(err => {
+            res.send({ error: err });
+        });
+    } else {
+        User.find().then(users => {
+            res.send(users);
+        }).catch(err => {
+            res.send({ error: err });
+        });
+    }
 }
+
+
+

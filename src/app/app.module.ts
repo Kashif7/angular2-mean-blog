@@ -14,9 +14,12 @@ import { HomeComponent } from './home/home.component';
 //services
 import { AuthService } from './auth.service';
 import { PostService } from './post.service';
+import { UserService } from './user.service';
 
 import { AuthGuard } from './auth/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SearchUserComponent } from './search-user/search-user.component';
+import { Ng2CompleterModule } from "ng2-completer";
 
 @NgModule({
   declarations: [
@@ -24,15 +27,18 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     RegistrationComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    SearchUserComponent,
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng2CompleterModule
   ],
-  providers: [AuthService,AuthGuard,PostService,Uploader],
+  providers: [AuthService,AuthGuard,PostService,Uploader,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
