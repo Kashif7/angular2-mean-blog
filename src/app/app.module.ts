@@ -9,14 +9,13 @@ import { Uploader } from 'angular2-http-file-upload';
 //components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-//services
-import { AuthService } from './auth.service';
 import { RegistrationComponent } from './registration/registration.component';
 import { HomeComponent } from './home/home.component';
+//services
+import { AuthService } from './auth.service';
+import { PostService } from './post.service';
 
-//Authentication
 import { AuthGuard } from './auth/auth.guard';
-import { SearchUserComponent } from './search-user/search-user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginComponent,
     RegistrationComponent,
     HomeComponent,
-    SearchUserComponent,
     DashboardComponent
   ],
   imports: [
@@ -34,7 +32,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AuthService,AuthGuard,Uploader],
+  providers: [AuthService,AuthGuard,PostService,Uploader],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

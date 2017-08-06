@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { HomeComponent } from './home/home.component';
-import { SearchUserComponent } from './search-user/search-user.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
 //Authentication
 import { AuthGuard } from './auth/auth.guard';
@@ -18,6 +17,7 @@ const routes: Routes = [
     {path:'login',component: LoginComponent},
     {path:'register',component: RegistrationComponent},
     {path:'home',component: DashboardComponent}
+
 ]
 
 @NgModule({

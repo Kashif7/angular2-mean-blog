@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 //static path
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 app.use(express.static(path.join(__dirname,'dist')));
 
 //connecting to database

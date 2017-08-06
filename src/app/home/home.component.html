@@ -1,3 +1,40 @@
-<p>
-  home works!
-</p>
+<div class="col-sm-6 col-md-6 col-lg-3 mt-4" *ngFor="let post of posts;let i = index" style="padding-top:2%">
+  <div class="row" *ngIf="i%2==0">
+    <div class="card">
+      <img class="card-img-top" *ngIf="posts[i].type=='image'" [src]="posts[i].media">
+      <video height="240" *ngIf="posts[i].type=='video'" controls>
+        <source [src]="posts[i].media">
+      </video>
+      <div class="card-block">
+        <h4 class="card-title">{{posts[i].title}}</h4>
+        <div class="meta">
+          <a href="#">Friends</a>
+        </div>
+        <div class="card-text">
+          {{posts[i].content}}
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="float-right">Joined in 2013</span>
+      </div>
+    </div>
+    <div class="card" *ngIf="posts[i+1]!=null" style="padding-top:5%">
+      <img class="card-img-top" *ngIf="posts[i+1].type=='image'" [src]="posts[i+1].media">
+      <video height="240" *ngIf="posts[i+1].type=='video'" controls>
+        <source [src]="posts[i+1].media">
+      </video>
+      <div class="card-block">
+        <h4 class="card-title">{{posts[i+1].title}}</h4>
+        <div class="meta">
+          <a href="#">Friends</a>
+        </div>
+        <div class="card-text">
+          {{posts[i+1].content}}
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="float-right">Joined in 2013</span>
+      </div>
+    </div>
+  </div>
+</div>
