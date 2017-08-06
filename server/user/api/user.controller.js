@@ -66,3 +66,9 @@ module.exports.updatePost = (req, res) => {
         res.send({ error: err });
     });
 };  
+
+module.exports.getUsers = (req,res) => {
+    console.log("zxssc");
+    console.log(req.query);
+    res.json(["ssssfs","ssdsfsfs"]);
+}
