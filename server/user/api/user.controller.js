@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
     Post = mongoose.model('Post'),
     multer = require('multer'),
     upload = multer({ dest: 'uploads/' }),
-    maxPageData = 5;
+    maxPageData = 4;
 
 module.exports.getPosts = (req, res) => {
 
@@ -11,16 +11,12 @@ module.exports.getPosts = (req, res) => {
         let start = parseInt(req.query.page * maxPageData - maxPageData);
         let end = parseInt(start + maxPageData);
 
-        console.log(start);
-        console.log(end);
-
-        User.findOne({ userId: req.params.userId }).populate({path:'posts',match: { postId: { $gte: start, $lte: end}}}).exec().then(user => {
+        User.findOne({ userId: req.params.userId }).populate({path:'posts',match: { postId: { $gt: start, $lte: end}}}).exec().then(user => {
             res.send(user.posts);
         }).catch(err => {
             res.send({ error: err });
         });
     }
-
 }
 
 module.exports.getPost = (req, res) => {

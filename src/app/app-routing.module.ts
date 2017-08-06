@@ -15,7 +15,7 @@ const routes: Routes = [
     //feature routes
     {path:'login',component: LoginComponent},
     {path:'register',component: RegistrationComponent},
-    {path:'home',component: AppComponent}
+    {path:'home',component: HomeComponent},
 ]
 
 @NgModule({

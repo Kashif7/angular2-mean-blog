@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 //static path
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 app.use(express.static(path.join(__dirname,'dist')));
 
 //connecting to database
@@ -40,7 +41,7 @@ const UserRouter = require('./server/user/api/user.route');
 
 //api Routes
 app.use('/api/auth',AuthRouter);//todo: move the routes to a separate file
-app.use('/api/user',UserRouter);
+app.use('/api/users',UserRouter);
 
 //serving the index file for the root route
 app.get('/',(req,res) => {
