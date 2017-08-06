@@ -16,7 +16,8 @@ const routes: Routes = [
     //feature routes
     {path:'login',component: LoginComponent},
     {path:'register',component: RegistrationComponent},
-    {path:'home',component: DashboardComponent}
+    {path:'home',component: HomeComponent },
+    {path:'dashboard',component: DashboardComponent }
 
 ]
 

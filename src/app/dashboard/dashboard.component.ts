@@ -14,11 +14,17 @@ export class DashboardComponent implements OnInit {
 
   post: any = {};
   userId: number;
+  userName: string;
   uploadingItems: any[] = [];
   constructor(public uploaderService: Uploader, private authService: AuthService) { }
 
   ngOnInit() {
     this.userId = this.authService.currentUser().id;
+    this.userName = this.authService.currentUser().fullname;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 

@@ -16,7 +16,7 @@ app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 app.use(express.static(path.join(__dirname,'dist')));
 
 //connecting to database
-mongoose.connect('mongodb://localhost/blog').then(()=>{
+mongoose.connect('mongodb://localhost/blogApp').then(()=>{
     console.log("database connection successful");
 }).catch(err => {
     console.error("Database connection failed");

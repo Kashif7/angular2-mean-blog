@@ -16,4 +16,8 @@ export class PostService {
       alert("successful");
     });
   }
+
+  getPostCount(userId) {
+    return this.http.get('/api/users/' + userId+'/count').map(res => res.json());
+  }
 }

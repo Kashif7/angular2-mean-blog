@@ -3,7 +3,13 @@ const mongoose = require('mongoose'),
     Post = mongoose.model('Post'),
     multer = require('multer'),
     upload = multer({ dest: 'uploads/' }),
-    maxPageData = 4;
+    maxPageData = 3;
+
+module.exports.getPageCount = (req,res) => {
+    User.findOne({ userId: req.params.userId }).then(user => {
+        res.send({postCount: user.posts.length});
+    });
+}    
 
 module.exports.getPosts = (req, res) => {
 

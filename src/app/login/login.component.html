@@ -1,15 +1,13 @@
 <div class="pen-title">
-  <h1>Login</h1><span>Pen <i class='fa fa-paint-brush'></i> + <i class='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span>
+  <h1>Login</h1><span><i class='fa fa-paint-brush'></i></span>
 </div>
 <!-- Form Module-->
 <div class="module form-module">
   <div class="toggle"><i class="fa fa-times fa-pencil"></i>
-    <div class="tooltip">Click Me</div>
   </div>
   <div class="form">
     <h2>Login to your account</h2>
     <form (ngSubmit)="onSubmit()">
-      {{diagnostic}}
       <input type="text" placeholder="email" name="email" [(ngModel)]="loginCred.email" required/>
       <input type="password" placeholder="Password" name="password" [(ngModel)]="loginCred.password" required/>
       <button type="submit">Login</button>

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import  { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,private router: Router) { }
 
   register(registerDetails) {
     this.http.post('/api/auth/register', registerDetails).map(res =>
       res.json()
     ).subscribe(res => {
       this.saveToken(res.token);
-      let d = this.currentUser();
-      console.log(d);
+      this.router.navigate(['/dashboard']);
     });
   }
 
@@ -22,9 +22,13 @@ export class AuthService {
       res.json()
     ).subscribe(res => {
       this.saveToken(res.token);
-      let d = this.currentUser();
-      console.log(d);
+      this.router.navigate(['/dashboard']);
     });
+  }
+
+  logout() {
+    localStorage.removeItem('mean-token');
+     this.router.navigate(['/login']);
   }
 
   private saveToken(token) {
