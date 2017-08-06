@@ -18,7 +18,8 @@ var upload = multer({ storage: storage });
 Router.get('/:userId/posts',UserController.getPosts);
 Router.get('/:userId/posts/:postId',UserController.getPost);
 Router.post('/:userId', upload.single('file'),UserController.addPost);
-Router.put('/:userId/posts/:postId',UserController.getPost);
+Router.put('/:userId/posts/:postId',UserController.updatePost);
+
 
 
 module.exports = Router;

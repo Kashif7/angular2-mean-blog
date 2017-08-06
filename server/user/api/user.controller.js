@@ -2,21 +2,32 @@ const mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Post = mongoose.model('Post'),
     multer = require('multer'),
-    upload = multer({ dest: 'uploads/' });
+    upload = multer({ dest: 'uploads/' }),
+    maxPageData = 5;
 
 module.exports.getPosts = (req, res) => {
-    User.findOne({ userId: req.params.userId }).populate('posts').exec().then(user => {
-        res.send(user.posts);
-    }).catch(err => {
-        res.send({error: err});
-    });
+
+    if (req.query.page) {
+        let start = parseInt(req.query.page * maxPageData - maxPageData);
+        let end = parseInt(start + maxPageData);
+
+        console.log(start);
+        console.log(end);
+
+        User.findOne({ userId: req.params.userId }).populate({path:'posts',match: { postId: { $gte: start, $lte: end}}}).exec().then(user => {
+            res.send(user.posts);
+        }).catch(err => {
+            res.send({ error: err });
+        });
+    }
+
 }
 
 module.exports.getPost = (req, res) => {
-    Posts.findOne({ postId: req.params.postId }).then(post => {
+    Post.findOne({ postId: req.params.postId }).then(post => {
         res.send(post);
     }).catch(err => {
-        res.send({error: err});
+        res.send({ error: err });
     });
 }
 
@@ -48,8 +59,8 @@ module.exports.addPost = (req, res) => {
     }
 }
 
-module.exports.updatePost = (req,res) => {
-    Posts.findOneAndUpdate({ postId: req.params.postId },{$set : req.body}).then(post => {
+module.exports.updatePost = (req, res) => {
+    Posts.findOneAndUpdate({ postId: req.params.postId }, { $set: req.body }).then(post => {
         res.send(post);
     }).catch(err => {
         res.send({ error: err });
