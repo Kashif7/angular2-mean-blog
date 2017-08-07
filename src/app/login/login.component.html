@@ -7,10 +7,17 @@
   </div>
   <div class="form">
     <h2>Login to your account</h2>
-    <form (ngSubmit)="onSubmit()">
-      <input type="text" placeholder="email" name="email" [(ngModel)]="loginCred.email" required/>
-      <input type="password" placeholder="Password" name="password" [(ngModel)]="loginCred.password" required/>
-      <button type="submit">Login</button>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+      <div *ngIf="success" class="alert alert-danger">Invalid credentials</div>
+      
+      <input type="email" placeholder="email" name="email" [(ngModel)]="loginCred.email" required #email="ngModel"/>
+      <div [hidden]="email.valid || email.pristine" class="alert alert-danger"> Email is required</div>
+      
+      <input type="password" placeholder="Password" name="password" [(ngModel)]="loginCred.password" required #password="ngModel"/>
+      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">Password is required</div>
+      
+      <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
     </form>
   </div>
   <div class="cta"><a routerLink="/register">New User?</a></div>

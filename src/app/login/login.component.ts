@@ -7,11 +7,12 @@ import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./style.css']
+  styleUrls: ['./style.css','./forms.css']
 })
 export class LoginComponent implements OnInit {
 
   loginCred = new Login("","");
+  success : boolean = false;
 
   constructor(private authService: AuthService) { }
 
@@ -19,10 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit = () => {
-    console.log(this.loginCred);
-    this.authService.login(this.loginCred);
+    this.success = !this.authService.login(this.loginCred);
   }
-
-   get diagnostic() { return JSON.stringify(this.loginCred); }
 
 }

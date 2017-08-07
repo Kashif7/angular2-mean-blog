@@ -7,10 +7,17 @@
   </div>
   <div class="form">
     <h2>Create an account</h2>
-    <form (ngSubmit)="onSubmit()">
-      <input type="text" placeholder="fullname" name="fullname" [(ngModel)]="regCred.fullname"/>
-      <input type="email" placeholder="Email Address"  name="email" [(ngModel)]="regCred.email"/>
-      <input type="password" placeholder="Password"  name="password" [(ngModel)]="regCred.password"/>
+    <form (ngSubmit)="onSubmit()" #regForm="ngForm"> 
+
+      <input type="text" placeholder="fullname" name="name" [(ngModel)]="regCred.fullname" required #name="ngModel"/>
+      <div [hidden]="name.valid || name.pristine" class="alert alert-danger"> Name is required</div>
+      
+      <input type="email" placeholder="Email Address"  name="email" [(ngModel)]="regCred.email" required #email="ngModel"/>
+      <div [hidden]="email.valid || email.pristine" class="alert alert-danger"> Email is required</div>
+      
+      <input type="password" placeholder="Password"  name="password" [(ngModel)]="regCred.password" required #password="ngModel"/>
+      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">Password is required</div>
+      
       <button type="submit">Register</button>
     </form>
   </div>

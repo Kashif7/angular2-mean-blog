@@ -1,34 +1,50 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import  { Router } from '@angular/router';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http,private router: Router) { }
+  constructor(private http: Http, private router: Router) { }
 
   register(registerDetails) {
-    this.http.post('/api/auth/register', registerDetails).map(res =>
-      res.json()
-    ).subscribe(res => {
-      this.saveToken(res.token);
-      this.router.navigate(['/dashboard']);
+    this.http.post('/api/auth/register', registerDetails).map(res => {
+      if (res.status < 200 || res.status >= 300) {
+        return { status: 'invalid' };
+      }
+      return res.json();
+    }).subscribe(res => {
+      if (res.status == 'invalid') {
+        console.log("invalid");
+      } else {
+        this.saveToken(res.token);
+        this.router.navigate(['/dashboard']);
+      }
     });
   }
 
   login(loginDetails) {
-    this.http.post('/api/auth/login', loginDetails).map(res =>
-      res.json()
-    ).subscribe(res => {
-      this.saveToken(res.token);
-      this.router.navigate(['/dashboard']);
+    this.http.post('/api/auth/login', loginDetails).map(res => {
+      return res.json();
+    }).catch(err => {
+      return Observable.throw(err);
+    }).subscribe(res => {
+        this.saveToken(res.token);
+        this.router.navigate(['/dashboard']);
+        return true;
+    },err => {
+      return false;
     });
+    return false;
   }
 
   logout() {
     localStorage.removeItem('mean-token');
-     this.router.navigate(['/login']);
+    this.router.navigate(['/login']);
   }
 
   private saveToken(token) {
