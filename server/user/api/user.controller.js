@@ -14,10 +14,12 @@ module.exports.getPageCount = (req, res) => {
 module.exports.getPosts = (req, res) => {
 
     if (req.query.page) {
+        console.log(req.query.page);
         let start = parseInt(req.query.page * maxPageData - maxPageData);
         let end = parseInt(start + maxPageData);
 
-        User.findOne({ userId: req.params.userId }).populate({ path: 'posts', match: { postId: { $gt: start, $lte: end } } }).exec().then(user => {
+        User.findOne({ userId: req.params.userId }).populate('posts').exec().then(user => {
+            user.posts = user.posts.slice(start,end);
             res.send(user.posts);
         }).catch(err => {
             res.send({ error: err });
